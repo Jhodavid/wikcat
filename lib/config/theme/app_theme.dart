@@ -1,37 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
-
 class AppTheme {
 
   static const colorLightScheme = ColorScheme(
-    background: Color(0xFFEDF5FD),
-    onBackground: Colors.black26,
     brightness: Brightness.light,
     error: Colors.red,
     onError: Colors.redAccent,
     primary: Color(0xFF53989a),
     onPrimary: Colors.greenAccent,
-    secondary: Color(0xFF05426E),
+    secondary: Color(0xF3F1F1FF),
     onSecondary: Colors.blueAccent,
-    surface: Color(0xF3F1F1FF),
+    surface: Colors.white,
     onSurface: Colors.blueGrey,
     surfaceTint: Colors.white
   );
 
   static const colorDarkScheme = ColorScheme(
-    background: Colors.black,
-    onBackground: Color(0xFFEDF5FD),
-    brightness: Brightness.light,
+    brightness: Brightness.dark,
     error: Colors.red,
     onError: Colors.redAccent,
-    primary: Color(0xff2d4949),
+    primary: Color(0xff7dede4),
     onPrimary: Colors.greenAccent,
-    secondary: Color(0xFF416B8A),
+    secondary: Color(0xFF019d91),
     onSecondary: Colors.blueAccent,
-    surface: Color(0xF3F1F1FF),
-    onSurface: Colors.blueGrey,
+    surface: Colors.white70,
+    onSurface: Colors.white,
     surfaceTint: Colors.white
   );
 
@@ -51,7 +45,6 @@ class AppTheme {
 
     return ThemeData(
       useMaterial3: true,
-      fontFamily: 'Inter',
       colorScheme: colorScheme,
       textTheme: const TextTheme().copyWith(
         displaySmall: const TextStyle(
@@ -67,8 +60,8 @@ class AppTheme {
         bodyLarge: const TextStyle(
           fontWeight: FontWeight.bold,
         ),
-        titleSmall: TextStyle(
-          color: colorScheme.background
+        titleSmall: const TextStyle(
+          color: Colors.black,
         ),
         titleMedium: const TextStyle(
           fontWeight: FontWeight.bold,
@@ -76,6 +69,9 @@ class AppTheme {
         titleLarge: const TextStyle(
             fontWeight: FontWeight.bold
         ),
+      ),
+      cardTheme: CardTheme(
+        color: colorScheme.secondary,
       ),
       inputDecorationTheme: const InputDecorationTheme(
         border: InputBorder.none,
@@ -97,10 +93,11 @@ class AppTheme {
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: colorScheme.secondary,
-        circularTrackColor: colorScheme.background,
+        circularTrackColor: colorScheme.surface,
       ),
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         // backgroundColor: _greenLightApp,
+        color: colorScheme.secondary,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.dark

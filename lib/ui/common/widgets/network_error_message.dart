@@ -23,7 +23,7 @@ class NetworkErrorMessage extends StatelessWidget {
         children: [
           Icon(
             Icons.warning_rounded,
-            color: Colors.red.withOpacity(0.8),
+            color: Colors.red.withValues(alpha: 0.8),
           ),
           const SizedBox(height: 5),
           SizedBox(

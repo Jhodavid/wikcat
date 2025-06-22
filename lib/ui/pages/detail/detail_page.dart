@@ -47,17 +47,20 @@ class DetailPage extends StatelessWidget {
           style: textStylesTheme.displaySmall,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            BreedsImagesCarousel(
-              height: height*0.4,
-              width: MediaQuery.of(context).size.width-30,
-              imagesUrls: breed.imagesUrls,
-              status: breed.imagesRequestStatus,
-              fit: BoxFit.cover,
-            ),
-            Scrollbar(
+      body: Column(
+        children: [
+          BreedsImagesCarousel(
+            height: height*0.4,
+            width: MediaQuery.of(context).size.width-30,
+            imagesUrls: breed.imagesUrls,
+            status: breed.imagesRequestStatus,
+            fit: BoxFit.cover,
+          ),
+
+          const SizedBox(height: 4),
+
+          Expanded(
+            child: Scrollbar(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -76,8 +79,8 @@ class DetailPage extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

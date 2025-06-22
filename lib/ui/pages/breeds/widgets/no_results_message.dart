@@ -20,7 +20,9 @@ class NoResultsMessage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(
-            Icons.info_rounded,
+            Icons.search_off_rounded,
+            color: Color(0xff019d91),
+            size: 36,
           ),
           const SizedBox(height: 5),
           Text(

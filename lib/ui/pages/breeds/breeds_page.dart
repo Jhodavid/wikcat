@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wikcat/ui/pages/breeds/interface/breeds_page_interface.dart';
+import 'package:wikcat/config/provider/providers.dart';
 
 import '../../../domain/domain.dart';
 import '../../common/common.dart';
 
-import 'presenter/breeds_presenter.dart';
 import 'widgets/breed_card.dart';
 import 'widgets/breeds_app_bar.dart';
 import 'widgets/no_results_message.dart';
@@ -14,15 +13,13 @@ import 'widgets/no_results_message.dart';
 class BreedsPage extends ConsumerStatefulWidget {
   static final route = '/breeds';
 
-  final ChangeNotifierProvider<BreedsPresenter> breedsPresenterProvider;
-
-  const BreedsPage(this.breedsPresenterProvider, {super.key});
+  const BreedsPage({super.key});
 
   @override
   ConsumerState createState() => _BreedsPageState();
 }
 
-class _BreedsPageState extends ConsumerState<BreedsPage> implements BreedsPageInterface {
+class _BreedsPageState extends ConsumerState<BreedsPage> {
 
   String filterText = '';
   late List<BreedModel> filteredBreedList;
@@ -30,22 +27,29 @@ class _BreedsPageState extends ConsumerState<BreedsPage> implements BreedsPageIn
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final breedsStateNotifier = ref.read(widget.breedsPresenterProvider);
-      breedsStateNotifier.onInit(this);
+      final breedsStateNotifier = ref.read(Providers.breedsPresenterProvider);
+      breedsStateNotifier.onInit();
     },);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final breedsStateProvider = ref.watch(widget.breedsPresenterProvider);
+    final breedsStateProvider = ref.watch(Providers.breedsPresenterProvider);
 
-    if(breedsStateProvider.breedsLoadingStatus == RequestStatusEnum.none || breedsStateProvider.breedsLoadingStatus == RequestStatusEnum.isLoading) {
+    if(
+      breedsStateProvider.breedsLoadingStatus == RequestStatusEnum.none
+      || breedsStateProvider.breedsLoadingStatus == RequestStatusEnum.isLoading
+    ) {
+
       return const Scaffold(body: LoadingBreedsMessage());
     }
 
     if(breedsStateProvider.breedsLoadingStatus == RequestStatusEnum.error) {
-      return Scaffold(body: NetworkErrorMessage(onAction: breedsStateProvider.getCatsBreeds));
+
+      return Scaffold(
+        body: NetworkErrorMessage(onAction: breedsStateProvider.getCatsBreeds)
+      );
     }
 
     if(filterText.isEmpty) {
@@ -94,13 +98,12 @@ class _BreedsPageState extends ConsumerState<BreedsPage> implements BreedsPageIn
                     childCount: 1
                   )
                 : SliverChildBuilderDelegate(
-                  childCount: filteredBreedList.length,
-                    (_, index) {
+                  childCount: filteredBreedList.length, (_, index) {
+                    final breed = filteredBreedList[index];
+
                     return Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 5),
-                      child: BreedCard(
-                        breed: filteredBreedList[index],
-                      )
+                      child: BreedCard(breed: breed)
                     );
                   },
                 )
@@ -110,25 +113,5 @@ class _BreedsPageState extends ConsumerState<BreedsPage> implements BreedsPageIn
         ),
       )
     );
-  }
-
-  @override
-  void hideError() {
-    // TODO: implement hideError
-  }
-
-  @override
-  void hideLoading() {
-    // TODO: implement hideLoading
-  }
-
-  @override
-  void showError() {
-    // TODO: implement showError
-  }
-
-  @override
-  void showLoading() {
-    // TODO: implement showLoading
   }
 }

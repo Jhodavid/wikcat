@@ -20,14 +20,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff111BFF)),
-      ),
+      theme: AppTheme(isDarkMode).getTheme(),
     );
   }
 }

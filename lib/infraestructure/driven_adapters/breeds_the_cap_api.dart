@@ -29,8 +29,8 @@ class BreedsTheCapApi extends BreedsGateway {
         headers: headers
       );
 
-        if(response.statusCode != 200) {
-        throw Exception();
+      if(response.statusCode != 200) {
+        throw Exception(response.body);
       }
 
       final data = jsonDecode(response.body);
@@ -58,7 +58,7 @@ class BreedsTheCapApi extends BreedsGateway {
       );
 
       if(response.statusCode != 200) {
-        throw Exception();
+        throw Exception(response.body);
       }
 
       final data = jsonDecode(response.body);
