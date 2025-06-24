@@ -87,7 +87,7 @@ class _SearchInput extends StatelessWidget {
         width: width-20,
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 0),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.6),
+          color: Colors.white.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(10)
         ),
         child: TextFormField(

@@ -4,7 +4,6 @@ import 'package:http/http.dart';
 import 'package:wikcat/infraestructure/endpoints/wik_cat_endpoints.dart';
 import 'package:wikcat/infraestructure/mappers/breed_image_response_mapper.dart';
 
-import '../../config/config.dart';
 import '../../domain/domain.dart';
 import '../mappers/the_cap_api_to_breeds_model_mapper.dart';
 import '../model/breed_image_response.dart';
@@ -12,21 +11,23 @@ import '../model/breeds_response.dart';
 
 class BreedsTheCapApi extends BreedsGateway {
 
-  static final httpClient = Client();
-  static final headers = {
+  Client httpClient;
+  String apiKey;
+
+  BreedsTheCapApi(this.httpClient, {this.apiKey = ''});
+
+  static Map<String, String> getHeaders(String apiKey) => {
     "Content-type": "application/json",
     "Accept": "application/json",
-    "x-api-key": AppEnvironment.theCatApiKey
+    "x-api-key": apiKey
   };
-
-  BreedsTheCapApi();
 
   @override
   Future<(ErrorModel?, List<BreedModel>)> getBreeds() async {
     try {
       final response = await httpClient.get(
         Uri.parse(WikCatEndpoints.breeds),
-        headers: headers
+        headers: getHeaders(apiKey)
       );
 
       if(response.statusCode != 200) {
@@ -50,11 +51,11 @@ class BreedsTheCapApi extends BreedsGateway {
   }
 
   @override
-  Future<(ErrorModel?, List<String>?)> getBreedImages(String breedId) async {
+  Future<(ErrorModel?, List<String>)> getBreedImages(String breedId) async {
     try {
       final response = await httpClient.get(
         Uri.parse('${WikCatEndpoints.images}$breedId'),
-        headers: headers
+        headers: getHeaders(apiKey)
       );
 
       if(response.statusCode != 200) {

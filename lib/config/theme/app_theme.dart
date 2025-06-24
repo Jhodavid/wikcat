@@ -75,28 +75,21 @@ class AppTheme {
       ),
       inputDecorationTheme: const InputDecorationTheme(
         border: InputBorder.none,
-        // hoverColor: _greenLightApp,
-        // focusColor: _blueApp,
       ),
       textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            // iconColor: _blueApp,
             backgroundColor: Colors.transparent,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5)
             ),
           )
       ),
-      textSelectionTheme: const TextSelectionThemeData(
-          // cursorColor: _blueApp,
-          // selectionHandleColor: _blueApp
-      ),
+      textSelectionTheme: const TextSelectionThemeData(),
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: colorScheme.secondary,
-        circularTrackColor: colorScheme.surface,
+        circularTrackColor: colorScheme.onSurface,
       ),
       appBarTheme: AppBarTheme(
-        // backgroundColor: _greenLightApp,
         color: colorScheme.secondary,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -104,10 +97,10 @@ class AppTheme {
         ),
       ),
       tooltipTheme: TooltipThemeData(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: colorScheme.secondary
-          ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: colorScheme.onSurface
+        ),
         triggerMode: TooltipTriggerMode.tap
       )
     );
